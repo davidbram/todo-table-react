@@ -1,0 +1,12 @@
+div {
+    padding: 3%;
+    display: inline;
+}
+
+.todo-label {
+    padding-right: 1%;
+}
+
+.todo-field * {
+    vertical-align: top;
+}

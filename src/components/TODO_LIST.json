@@ -1,0 +1,6 @@
+[{"id": 1, "Task": "Learn react" , "Description": "Watch codevolution playlist on YT", "Date": "12/01/2020" },
+{"id": 2, "Task": "Learn GraphQL" , "Description": "Go through GraphQL docs", "Date": "23/05/2020" },
+{"id": 3, "Task": "Buy groceries" , "Description": "Buy essentials for home", "Date": "01/02/2020" },
+{"id": 4, "Task": "Water plants" , "Description": "Water plants in the garden", "Date": "24/01/2020" },
+{"id": 5, "Task": "Press clothes" , "Description": "Iron clothes for the week", "Date": "30/11/2020" }
+]

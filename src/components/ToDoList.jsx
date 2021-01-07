@@ -19,8 +19,8 @@ const ToDoList = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const today = new Date();
-    const currentDate = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
+    const today = new Date(2022, 3, 15);
+    const currentDate = `${("0"+today.getDate()).slice(-2)}/${("0"+(today.getMonth()+1)).slice(-2)}/${today.getFullYear()}`;
     const nextItem = toDoList.length + 1;
     console.log(nextItem);
     console.log(currentDate);

@@ -4,14 +4,13 @@ import Table from "./Table/Table";
 import TODO_LIST from "./TODO_LIST.json";
 
 
-const ToDoContext = React.createContext();
+const DeleteItemContext = React.createContext();
 
 const ToDoList = () => {
   const [toDoList, setToDoList] = useState(TODO_LIST);
+  const [searchTask, setSearchTask] = useState('');
 
   const nextId = toDoList.length + 1;
-
-  
 
   // useEffect(() => {
   //   console.log(toDoList);
@@ -25,15 +24,26 @@ const ToDoList = () => {
     setToDoList(prevItems => prevItems.filter((item, id) => id !== selectedId));
   }
 
+  const editSearchTask = (e) => {
+    setSearchTask(e.target.value);
+}
+
+  const dynamicSearchItem = () => {
+    return toDoList.filter(todo => todo.Task.toLowerCase().includes(searchTask.toLowerCase()))
+  }
+
   return (
-    <ToDoContext.Provider value={deleteItem}>
+    <DeleteItemContext.Provider value={deleteItem}>
       <CreateItem addItem={addItem} nextId={nextId} />
-      <Table toDoList={toDoList} onDelete={deleteItem} />
-    </ToDoContext.Provider>
+      <div>
+        <input type="text" onChange={editSearchTask} value={searchTask} placeholder="Search tasks"/>
+      </div> 
+      <Table toDoList={dynamicSearchItem()} onDelete={deleteItem} />
+    </DeleteItemContext.Provider>
   );
 };
 
 export default ToDoList;
 
-export {ToDoContext};
+export {DeleteItemContext};
 

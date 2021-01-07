@@ -8,5 +8,9 @@ div {
 }
 
 .todo-field * {
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+.create-task {
+    margin: 10px;
 }

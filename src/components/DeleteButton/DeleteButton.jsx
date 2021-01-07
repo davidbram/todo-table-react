@@ -1,18 +1,17 @@
 import React from 'react'
-import {ToDoContext} from '../ToDoList';
+import {DeleteItemContext} from '../ToDoList';
 
 const DeleteButton = (props) => {
 
-
     return (
-        <ToDoContext.Consumer>
+        <DeleteItemContext.Consumer>
             {
                 deleteItem => <button onClick={() => {
                     deleteItem(props.id);
                 }}>Delete</button>
             }
     
-        </ToDoContext.Consumer>
+        </DeleteItemContext.Consumer>
     )
 }
 

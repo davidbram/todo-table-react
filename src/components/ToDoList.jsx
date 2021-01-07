@@ -1,59 +1,39 @@
 import React, { useState, useEffect } from "react";
-import CreateTask from "./CreateTask/CreateTask";
+import CreateItem from "./CreateItem/CreateItem";
 import Table from "./Table/Table";
 import TODO_LIST from "./TODO_LIST.json";
 
-const ToDoList = () => {
-  const [item, setItem] = useState({
-    id: "",
-    Task: "",
-    Description: "",
-    Date: "",
-  });
 
+const ToDoContext = React.createContext();
+
+const ToDoList = () => {
   const [toDoList, setToDoList] = useState(TODO_LIST);
 
-  useEffect(() => {
-    console.log(toDoList);
-  }, [toDoList])
+  const nextId = toDoList.length + 1;
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const today = new Date(2022, 3, 15);
-    const currentDate = `${("0"+today.getDate()).slice(-2)}/${("0"+(today.getMonth()+1)).slice(-2)}/${today.getFullYear()}`;
-    const nextItem = toDoList.length + 1;
-    console.log(nextItem);
-    console.log(currentDate);
+  
 
-    console.log([...toDoList, { ...item, id: nextItem, Date: currentDate }]);
+  // useEffect(() => {
+  //   console.log(toDoList);
+  // }, [toDoList]);
 
-    setToDoList([...toDoList, { ...item, id: nextItem, Date: currentDate }]);
-
-    setItem({
-      id: "",
-      Task: "",
-      Description: "",
-      Date: "",
-    })
-
-
+  const addItem = (newItem) => {
+    setToDoList((prevItems) => [...prevItems, newItem]);
   };
 
-  const changeHandler = (e) => {
-    const { name, value } = e.target;
-    setItem({ ...item, [name]: value });
-  };
+  const deleteItem = (selectedId) => {
+    setToDoList(prevItems => prevItems.filter((item, id) => id !== selectedId));
+  }
 
   return (
-    <>
-      <CreateTask
-        submitTask={submitHandler}
-        item={item}
-        changeHandler={changeHandler}
-      />
-      <Table toDoList={toDoList} />
-    </>
+    <ToDoContext.Provider value={deleteItem}>
+      <CreateItem addItem={addItem} nextId={nextId} />
+      <Table toDoList={toDoList} onDelete={deleteItem} />
+    </ToDoContext.Provider>
   );
 };
 
 export default ToDoList;
+
+export {ToDoContext};
+

@@ -1,19 +1,19 @@
-import React from 'react'
-import {DeleteItemContext} from '../ToDoList';
+import React, { useContext } from "react";
+import { DeleteItemContext } from "../ToDoList";
 
 const DeleteButton = (props) => {
+  const deleteItem = useContext(DeleteItemContext);
 
-    return (
-        <DeleteItemContext.Consumer>
-            {
-                deleteItem => <button onClick={() => {
-                    deleteItem(props.id);
-                }}>Delete</button>
-            }
-    
-        </DeleteItemContext.Consumer>
-    )
-}
+  return (
+    <button
+      onClick={() => {
+        deleteItem(props.id);
+      }}
+    >
+      Delete
+      
+    </button>
+  );
+};
 
-export default DeleteButton
-
+export default DeleteButton;

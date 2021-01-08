@@ -27,7 +27,7 @@ const CreateItem = (props) => {
     // console.log(props.currentDate);
 
     // console.log({ ...item, id: props.nextId, Date: currentDate });
-    props.addItem({ ...item, id: props.nextId, Date: currentDate });
+    props.addItem({ ...item, Date: currentDate });
     setItem(initialState);
   };
 

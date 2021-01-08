@@ -1,8 +1,9 @@
 import React from "react";
+import './SearchItem.css';
 
 const SearchItem = (props) => {
   return (
-    <div>
+    <div className="search-item">
       <label htmlFor="searchTask">Search: </label>
       <input
         type="text"

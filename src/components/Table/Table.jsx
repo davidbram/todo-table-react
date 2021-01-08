@@ -3,7 +3,10 @@ import DeleteButton from "../DeleteButton/DeleteButton";
 import "./Table.css";
 
 const Table = (props) => {
-  console.log(props);
+  // console.log(props);
+
+  const orderColumns = (todo) => ['id', 'Task', 'Description', 'Date'].map(column => todo[column]);
+
   return (
     <table>
       <thead>
@@ -12,20 +15,22 @@ const Table = (props) => {
             Object.keys(props.toDoList[0]).map((header, index) => (
               <th key={index}>{header}</th>
             ))}
+          <th>Edit</th>
           <th>Remove</th>
         </tr>
       </thead>
       <tbody>
-        {props.toDoList.map((todo, itemId) => (
+        {props.toDoList && props.toDoList.map((todo, itemId) => (
           <tr key={todo.id}>
-            {Object.entries(todo).map(([column, cell]) =>
+            { Object.entries(orderColumns(todo)).map(([column, cell]) =>
               column === "id" ? (
                 <td key={column}>{itemId + 1}</td>
               ) : (
                 <td key={column}>{cell}</td>
               )
             )}
-            <td><DeleteButton id={itemId} /></td>
+            <td><button>Edit</button></td>
+            <td><DeleteButton id={todo.id} /></td>
           </tr>
         ))}
       </tbody>

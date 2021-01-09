@@ -1,5 +1,6 @@
 import React from "react";
 import DeleteButton from "../DeleteButton/DeleteButton";
+import EditButton from "../EditButton/EditButton";
 import "./Table.css";
 
 const Table = (props) => {
@@ -29,7 +30,7 @@ const Table = (props) => {
                 <td key={column}>{cell}</td>
               )
             )}
-            <td><button>Edit</button></td>
+            <td><EditButton id={todo.id}/></td>
             <td><DeleteButton id={todo.id} /></td>
           </tr>
         ))}

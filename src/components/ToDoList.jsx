@@ -6,8 +6,10 @@ import Error from "./Error";
 import Table from "./Table/Table";
 import axios from "axios";
 import NavBar from "./NavBar/NavBar";
+import EditItem from "./EditItem/EditItem";
 
 const DeleteItemContext = React.createContext();
+const EditItemContext = React.createContext();
 
 const ToDoList = () => {
   const [toDoList, setToDoList] = useState([]);
@@ -62,6 +64,19 @@ const ToDoList = () => {
     });
   };
 
+
+  const editItem = async (selectedId, selectedItem) => {
+    axios.patch(url+`/${selectedId}`, selectedItem)
+   .then(res => {
+    axios.get(url)
+    .then(res => {
+      setToDoList(res.data)
+    })
+    .catch(err => console.log(err))
+   })
+    .catch(err => console.log(err));
+  }
+
   const editSearchTask = (e) => {
     setSearchTask(e.target.value);
   };
@@ -75,6 +90,7 @@ const ToDoList = () => {
   return (
     <>
       <NavBar />
+      <EditItemContext.Provider value={editItem}>
       <Switch>
         <Route
           path="/add"
@@ -85,23 +101,28 @@ const ToDoList = () => {
           path="/"
           component={() => (
             <DeleteItemContext.Provider value={deleteItem}>
-              <CreateItem addItem={addItem} nextId={nextId} />
-              <Table toDoList={toDoList} onDelete={deleteItem} />
-              {/* <SearchItem
+              <SearchItem
                 editSearchTask={editSearchTask}
                 searchTask={searchTask}
-              /> */}
+              />
+              <Table toDoList={dynamicSearchItem()} onDelete={deleteItem} />
             </DeleteItemContext.Provider>
           )}
           exact
         />
+        
+        <Route
+          path="/edit/:id"
+          component={EditItem}
+        />
 
         <Route component={Error} />
       </Switch>
+      </EditItemContext.Provider>
     </>
   );
 };
 
 export default ToDoList;
 
-export { DeleteItemContext };
+export { DeleteItemContext, EditItemContext };

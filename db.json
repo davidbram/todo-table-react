@@ -9,13 +9,13 @@
     {
       "id": 2,
       "Task": "Learn GraphQL",
-      "Description": "Go through GraphQL docs",
+      "Description": "Go through GraphQL docs right now",
       "Date": "23/05/2020"
     },
     {
       "id": 3,
       "Task": "Buy groceries",
-      "Description": "Buy essentials for home",
+      "Description": "Buy essentials for home now",
       "Date": "01/02/2020"
     },
     {

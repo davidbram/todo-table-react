@@ -39,7 +39,7 @@ const ToDoList = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [toDoList.length])
+  }, [toDoList.length]);
 
   const addItem = (newItem) => {
     axios
@@ -54,28 +54,32 @@ const ToDoList = () => {
   };
 
   const deleteItem = (selectedId) => {
-    axios.delete(url + `/${selectedId}`)
-    .then(res => {
-      console.log(res.data);
-      setToDoList(prevItems => prevItems.filter((item, id) => item.id !== selectedId));
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    axios
+      .delete(url + `/${selectedId}`)
+      .then((res) => {
+        console.log(res.data);
+        setToDoList((prevItems) =>
+          prevItems.filter((item, id) => item.id !== selectedId)
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-
-  const editItem = async (selectedId, selectedItem) => {
-    axios.patch(url+`/${selectedId}`, selectedItem)
-   .then(res => {
-    axios.get(url)
-    .then(res => {
-      setToDoList(res.data)
-    })
-    .catch(err => console.log(err))
-   })
-    .catch(err => console.log(err));
-  }
+  const editItem = (selectedId, selectedItem) => {
+    axios
+      .patch(url + `/${selectedId}`, selectedItem)
+      .then((res) => {
+        axios
+          .get(url)
+          .then((res) => {
+            setToDoList(res.data);
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  };
 
   const editSearchTask = (e) => {
     setSearchTask(e.target.value);
@@ -91,15 +95,13 @@ const ToDoList = () => {
     <>
       <NavBar />
       <EditItemContext.Provider value={editItem}>
-      <Switch>
-        <Route
-          path="/add"
-          component={() => <CreateItem addItem={addItem} nextId={nextId} />}
-        />
+        <Switch>
+          <Route
+            path="/add"
+            component={() => <CreateItem addItem={addItem} nextId={nextId} />}
+          />
 
-        <Route
-          path="/"
-          component={() => (
+          <Route path="/" exact>
             <DeleteItemContext.Provider value={deleteItem}>
               <SearchItem
                 editSearchTask={editSearchTask}
@@ -107,17 +109,12 @@ const ToDoList = () => {
               />
               <Table toDoList={dynamicSearchItem()} onDelete={deleteItem} />
             </DeleteItemContext.Provider>
-          )}
-          exact
-        />
-        
-        <Route
-          path="/edit/:id"
-          component={EditItem}
-        />
+          </Route>
 
-        <Route component={Error} />
-      </Switch>
+          <Route path="/edit/:id" component={EditItem} />
+
+          <Route component={Error} />
+        </Switch>
       </EditItemContext.Provider>
     </>
   );

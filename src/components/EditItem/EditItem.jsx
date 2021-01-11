@@ -4,8 +4,14 @@ import { EditItemContext } from "../ToDoList";
 
 const EditItem = (props) => {
   console.log(props);
+  const initialState = {
+    id: "",
+    Task: "",
+    Description: "",
+    Date: "",
+  };
   const itemId = props.match.params.id;
-  const [editedItem, setEditedItem] = useState({});
+  const [editedItem, setEditedItem] = useState(initialState);
   const editItem = useContext(EditItemContext);
 
   useEffect(() => {

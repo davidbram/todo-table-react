@@ -12,6 +12,10 @@ const Table = (props) => {
     setToDoList(props.toDoList);
   }, [])
 
+  useEffect(() => {
+    setToDoList(props.toDoList);
+  }, [props.toDoList.length])
+
   const orderColumns = (todo) => ['id', 'Task', 'Description', 'Date'].map(column => todo[column]);
 
   const sortById = (type) => {
@@ -107,7 +111,7 @@ const Table = (props) => {
               )
             )}
             <td><EditButton id={todo.id}/></td>
-            <td><DeleteButton id={todo.id} /></td>
+            <td><DeleteButton id={todo.id}/></td>
           </tr>
         ))}
       </tbody>

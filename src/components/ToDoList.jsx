@@ -30,10 +30,10 @@ const ToDoList = () => {
   }, []);
 
   useEffect(() => {
+    
     axios
       .get(url)
       .then((res) => {
-        // console.log(res.data);
         setToDoList(res.data);
       })
       .catch((err) => {
@@ -54,12 +54,13 @@ const ToDoList = () => {
   };
 
   const deleteItem = (selectedId) => {
+    console.log('Deleting item');
     axios
       .delete(url + `/${selectedId}`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
         setToDoList((prevItems) =>
-          prevItems.filter((item, id) => item.id !== selectedId)
+          prevItems.filter((item) => item.id !== selectedId)
         );
       })
       .catch((err) => {
@@ -107,7 +108,7 @@ const ToDoList = () => {
                 editSearchTask={editSearchTask}
                 searchTask={searchTask}
               />
-              <Table toDoList={dynamicSearchItem()} onDelete={deleteItem} />
+              <Table toDoList={dynamicSearchItem()} />
             </DeleteItemContext.Provider>
           </Route>
 

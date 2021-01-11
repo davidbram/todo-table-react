@@ -10,10 +10,12 @@ const Table = (props) => {
 
   useEffect(() => {
     setToDoList(props.toDoList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     setToDoList(props.toDoList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.toDoList.length])
 
   const orderColumns = (todo) => ['id', 'Task', 'Description', 'Date'].map(column => todo[column]);

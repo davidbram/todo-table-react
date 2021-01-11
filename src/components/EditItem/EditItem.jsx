@@ -10,13 +10,13 @@ const EditItem = (props) => {
     Description: "",
     Date: "",
   };
-  const itemId = props.match.params.id;
+  
   const [editedItem, setEditedItem] = useState(initialState);
   const editItem = useContext(EditItemContext);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/items/${itemId}`)
+      .get(`http://localhost:3001/items/${props.match.params.id}`)
       .then((res) => {
         console.log(res.data);
         setEditedItem(res.data);
@@ -33,7 +33,7 @@ const EditItem = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    editItem(itemId, editedItem);
+    editItem(props.match.params.id, editedItem);
   };
 
   return (

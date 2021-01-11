@@ -1,13 +1,13 @@
 import "./App.css";
 import ToDoList from "./components/ToDoList";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <Router>
         <ToDoList />
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

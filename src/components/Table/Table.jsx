@@ -7,6 +7,21 @@ const Table = (props) => {
   // console.log(props);
 
   const [toDoList, setToDoList] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [itemNumber] = useState(5);
+
+  const currentPageNumber = (pageNumber * itemNumber) - itemNumber;
+  const paginatedItems = toDoList.slice().splice(currentPageNumber, itemNumber);
+
+  const handlePrev = () => {
+    if(pageNumber === 1) return;
+    setPageNumber(pageNumber - 1);
+  }
+
+  const handleNext = () => {
+    if(paginatedItems.length === 0) return;
+    setPageNumber(pageNumber + 1);
+  }
 
   useEffect(() => {
     setToDoList(props.toDoList);
@@ -83,7 +98,8 @@ const Table = (props) => {
   }
 
   return (
-    <table>
+    <>
+      <table>
       <thead>
         <tr>
           {toDoList[0] &&
@@ -103,7 +119,7 @@ const Table = (props) => {
         </tr>
       </thead>
       <tbody>
-        {toDoList && toDoList.map((todo, itemId) => (
+        {paginatedItems && paginatedItems.map((todo, itemId) => (
           <tr key={todo.id}>
             { Object.entries(orderColumns(todo)).map(([column, cell]) =>
               column === "id" ? (
@@ -118,6 +134,12 @@ const Table = (props) => {
         ))}
       </tbody>
     </table>
+    <div className="page-number">
+    <p>Page number {pageNumber} </p>
+      <button onClick={handlePrev}>Prev</button>
+      <button onClick={handleNext}>Next</button>
+    </div>
+    </>
   );
 };
 
